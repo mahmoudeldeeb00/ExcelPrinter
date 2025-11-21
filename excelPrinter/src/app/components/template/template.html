@@ -1,0 +1,19 @@
+<div class="sticker">
+  <div class="row" style="margin-top: 35%;">
+    <div class="col qr-section" style="width: 60%;">
+      <app-show-qrcomponent [qrCodeData]="data.qrData">
+
+        </app-show-qrcomponent>
+    </div>
+    <div class="logo-section"  style="width: 40%; ; align-content: center">
+    <img [src]="qrLogoPath" [alt]="qrLogoPath" class="qr">
+
+  </div>
+  </div>
+
+
+  <h1 class="code h1">{{data.qrData}}</h1>
+
+  <h3 class="h3 warning-en">{{qrMessageEn}}</h3>
+  <h3 class="h3 warning-ar">{{qrMessageAr}}</h3>
+</div>

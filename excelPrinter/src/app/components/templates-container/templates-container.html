@@ -1,0 +1,14 @@
+<button class="btn btn-primary"   (click)="downloadPDF()">  Print {{(currentIndex+1)}} </button>
+<div id="printDiv"  #devContent style="width: 210mm;" >
+    
+    @for (item of data; track item.qrData) {
+        <div class="pdf-div">
+
+            <ng-container >
+                <app-template  [data]="item" >
+                    
+                </app-template>
+            </ng-container>
+        </div>
+}
+</div>
