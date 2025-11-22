@@ -1,85 +1,75 @@
-import { Component, ElementRef, Inject, Input, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, Input, OnChanges, OnInit, PLATFORM_ID, SimpleChanges, ViewChild } from '@angular/core';
 import { TempData } from '../../interfaces/temp-data';
 import { Template } from "../template/template";
 import domtoimage from 'dom-to-image-more';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgStyle } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
 
 import jsPDF from 'jspdf';
+import { Progressdownladpdf } from '../progressdownladpdf/progressdownladpdf';
 @Component({
   selector: 'app-templates-container',
-  imports: [ Template],
+  imports: [Template, NgStyle],
   templateUrl: './templates-container.html',
   styleUrl: './templates-container.css',
 })
-export class TemplatesContainer {
-@Input() data :TempData[] =[]
+export class TemplatesContainer implements OnInit , OnChanges{
+@Input() data :TempData[] =[];
+@Input() printMode :number =1;
+ filterData :TempData[] =[];
+groups:number[]=[1];
 
-constructor(@Inject(PLATFORM_ID) private platformId: Object){
+@ViewChild('devContent') devContent!: ElementRef;
+dialogRef : any;
+currentIndex : number = 0;
+progressData : any = {current : 0 , all : 0 , label :'File No.'}; 
+
+constructor(@Inject(PLATFORM_ID) private platformId: Object , private dialog: MatDialog){
 
 }
-  @ViewChild('devContent') devContent!: ElementRef;
-currentIndex : number = -1;
-
-  downloadPDF() {
-    // const DATA = this.devContent.nativeElement;
-
-    // html2canvas(DATA, { scale: 2 }).then(canvas => {
-    //   const imgData = canvas.toDataURL('image/png');
-    //   const pdf = new jsPDF('p', 'mm', 'a4');
-
-    //   // حساب الطول بناءً على أبعاد الصورة
-    //   const imgProps = pdf.getImageProperties(imgData);
-    //   const pdfWidth = pdf.internal.pageSize.getWidth();
-    //   const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-    //   pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    //   pdf.save('div-content.pdf');
-    // });
-
-    
-    
-      const receiptElement = document.getElementById('printDiv');
-      if (!receiptElement) return;
-    if (isPlatformBrowser(this.platformId)) {
-      if(false){
-
-        import('dom-to-image-more').then(domtoimage => {
-          const element = this.devContent.nativeElement;
-          
-          domtoimage.toPng(element)
-          .then((dataUrl: string) => {
-        const pdf = new jsPDF('p', 'mm', 'a4'); // A4, عمودي
-        const pdfWidth = 210;
-        const pdfHeight =297;
-
-        const img = new Image();
-        img.src = dataUrl;
-        img.onload = () => {
-          const imgWidth = img.width ;
-
-          pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth,pdfHeight);
-          pdf.save('content.pdf'); // اسم الملف النهائي
-        };
-      })
-      .catch((error: any) => {
-        console.error('Error generating PDF', error);
-      });
-    });
+  ngOnInit(): void {
+    this.handleChangeData(1,1);
   }
-   if(true)  {
-     import('dom-to-image-more').then(domtoimage => {
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const divs: HTMLElement[] = Array.from(document.querySelectorAll('.pdf-div')); // كل div يحمل class واحد
-
-      const processDiv = (index: number) => {
-        this.currentIndex = index
+   ngOnChanges(): void {
+    this.handleChangeData(1,1);
+  }
+  handleChangeData(skip:number , take:number){
+    this.filterData =this.skipTake( this.data, skip*6,take*6);
+      this.groups = [];
+      let n = this.numberOfRows(this.filterData.length ,6)
+    for(let i = 1 ; i<=n; i++)
+      {
+        this.groups.push(i)
+      }
+  }
+ async print(pageNumber: number , each:number): Promise<void> {
+  const receiptElement = document.getElementById('printDiv');
+  if (!receiptElement) return;
+  if (isPlatformBrowser(this.platformId)) {
+    const domtoimage = await import('dom-to-image-more');
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const divs: HTMLElement[] = Array.from(document.querySelectorAll('.pdf-div'));
+    
+    this.progressData.all = divs.length;
+    let fileName = `File No. ${pageNumber}`;
+    
+    this.progressData.label = fileName;
+    const processDiv = (index: number): Promise<void> => {
+      return new Promise((resolve) => {
         if (index >= divs.length) {
-          pdf.save('multi-div-content.pdf');
-            this.currentIndex = -1;
+          try {
+            pdf.save(`${fileName}.pdf`);
+           
+          } catch {}
+         // this.processPageNumber = pageNumber;
+          resolve();
           return;
         }
 
         const element = divs[index];
+        this.currentIndex = index;
+        this.progressData.current = this.currentIndex;
+        this.dialogRef.componentInstance.data = this.progressData;
 
         domtoimage.toPng(element)
           .then((dataUrl: string) => {
@@ -92,23 +82,116 @@ currentIndex : number = -1;
 
               pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, imgHeight);
 
-              // أضف صفحة جديدة إذا لم تكن آخر div
               if (index < divs.length - 1) {
                 pdf.addPage();
               }
 
-              processDiv(index + 1); // العملية للـ div التالي
+              // ننتظر div التالي
+              processDiv(index + 1).then(() => resolve());
             };
           })
           .catch((error: any) => {
             console.error('Error generating PDF for div', index, error);
-            processDiv(index + 1); // تجاهل الخطأ واستمر
+            // تجاهل الخطأ واستمر
+            processDiv(index + 1).then(() => resolve());
           });
-      };
+      });
+    };
 
-      processDiv(0);
-    });
-   }
+    // ننتظر اكتمال كل div
+    await processDiv(0);
+  }
+}   
+
+noOfLevels :number = 0 ;
+ async downloadPdfLevel(eachP:number , level:number){
+this.handleChangeData(level-1 , eachP)
+if(level <= this.noOfLevels){
+  const receiptElement = document.getElementById('printDiv');
+    const domtoimage = await import('dom-to-image-more');
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const divs: HTMLElement[] = Array.from(document.querySelectorAll('.pdf-div'));
     
-}}
+    this.progressData.all = divs.length;
+    let fileName = `File No. ${level}`;
+    this.progressData.label = fileName;
+    this.progressData.current = this.currentIndex;
+    this.dialogRef.componentInstance.data = this.progressData;
+    console.log('begin processDiv')
+    const processDiv = (index: number ) => {
+      return new Promise((resolve) => {
+        const element = divs[index];
+        this.currentIndex = index;
+        this.progressData.current = this.currentIndex;
+        this.dialogRef.componentInstance.data = this.progressData;
+        if (index >= divs.length) {   
+            pdf.save(`${fileName}.pdf`);
+          
+          return;
+        }
+        
+        domtoimage.toPng(element)
+          .then((dataUrl: string) => {
+            const img = new Image();
+            img.src = dataUrl;
+            img.onload = () => {
+              const pdfWidth = pdf.internal.pageSize.getWidth();
+              const ratio = pdfWidth / img.width;
+              const imgHeight = img.height * ratio;
+              pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, imgHeight);
+              if (index < divs.length - 1) {
+                pdf.addPage();
+              }  
+              processDiv(index + 1)
+            };
+          })
+          .catch((error: any) => {
+            processDiv(index + 1);
+          });
+      });
+    };
+
+    // ننتظر اكتمال كل div
+    await processDiv(0);
+  
+         
+      
+ }      
+}
+
+
+   downloadPDF(eachP:number ) {
+     this.dialogRef = this.dialog.open(Progressdownladpdf , {
+          data: this.progressData,
+          width:'80%',
+          disableClose: true,
+        });
+
+    this.noOfLevels = this.numberOfRows(this.data.length,eachP *6);
+    let  i = 1;
+      this.downloadPdfLevel(eachP ,i )
+    
+    const intrerval = setInterval(()=>{
+      console.log(' i :: ',i)
+      console.log(' noOfLevels :: ',   this.noOfLevels)
+      i++;
+       this.downloadPdfLevel(eachP ,i )
+       if(i == this.noOfLevels){
+        clearInterval(intrerval)
+       }
+    },eachP * 1000)
+  
+     
+        
+}
+
+ numberOfRows(n: number, perRow: number = 6): number {
+  return Math.ceil(n / perRow);
+}
+async delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+skipTake<T>(arr: T[], skip: number, take: number): T[] {
+  return arr.slice(skip, skip + take);
+}
 }

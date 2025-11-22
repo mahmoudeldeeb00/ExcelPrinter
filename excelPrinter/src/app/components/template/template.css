@@ -1,44 +1,86 @@
 .sticker {
-  
-  width: 210mm;
-  height: 297mm;
-  padding: 15px;
-  border: 3px solid #1b4a75;
-  border-radius: 12px;
-  text-align: center;
+  padding: 10px;
   font-family: Arial, sans-serif;
   position: relative;
   background: #fff;
 }
+.sticker-content{
+  border: 3px solid #205e98;
+  border-radius: 5px;
+  text-align: center;
 
+}
 .qr {
-  margin-top: 5px;
-
-  width: 70%;
+  margin-top: 2px;
+  width: 100%;
 }
 
 .logo {
   width: 30%;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
 .code {
-  font-size: 18px;
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: 5px;
   letter-spacing: 1px;
 }
 
 .warning-en {
-  margin-top: 10px;
-  font-size: 16px;
-  color: red;
-  font-weight: 600;
+  margin-top:5px;
+  color: red;font-weight: bold;
 }
 
 .warning-ar {
   font-size: 14px;
   color: red;
-  margin-top: 3px;
+  margin-top: 5px;
   font-weight: 600;
+}
+/* ////////////////////////////////// */
+.corner-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;   /* حجم الزاوية */
+    height: 10px;
+    border-top: 1px solid #205e98;   /* سمك ولون الزاوية */
+    border-left: 1px solid #205e98;
+}
+
+/* زاوية عليا يمين */
+.corner-box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    border-top: 1px solid #205e98;
+    border-right: 1px solid #205e98;
+}
+
+/* زاوية سفلى يسار */
+.corner-box span {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    border-bottom: 1px solid #205e98;
+    border-left: 1px solid #205e98;
+}
+
+/* زاوية سفلى يمين */
+.corner-box strong {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    border-bottom: 1px solid #205e98;
+    border-right: 1px solid #205e98;
 }

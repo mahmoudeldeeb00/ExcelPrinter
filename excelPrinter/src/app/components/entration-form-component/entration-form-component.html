@@ -1,1 +1,42 @@
-<input type="file" (change)="onFileChange($event)" />
+<div class="row mt-2">
+<div class="col-6"> 
+    <h1 class="h1"> File Name : {{excelInfo.fileName}}</h1>
+    <h1 class="h1"> Records Count : {{excelInfo.count}}</h1>
+    <h1 class="h1" *ngIf="list?.length ??0>0"> Start : {{excelInfo.start}}</h1>
+    <h1 class="h1" *ngIf="list?.length??0>0"> End : {{excelInfo.end}}</h1>
+
+</div>
+<div class="col-6"> 
+    <div><input type="file" class="form-control mb-2" (change)="onFileChange($event)" /></div>
+    <div>
+        <div class="dropzone" appDropzoneDirective (fileDropped)="onFileDropped($event)">
+        <div *ngIf="excelInfo?.fileName; else other ">
+           
+            <strong>Selected: {{ excelInfo.fileName }}</strong> 
+        </div>
+        <ng-template #other >
+                <strong>Drag & Drop Excel File Here</strong> 
+        </ng-template>
+        </div>
+
+    </div>
+    <div class="mt-2 row">
+        <div class="col-6 " > <button  [class.btn-primary]="this.excelInfo.printMode ==1"  [class.btn-outline-primary]="this.excelInfo.printMode ==2" class="btn w-100" (click)="changeMode(1)"> Coloring 8cm Mode </button>  </div>
+        <div class="col-6 ">   <button   [class.btn-primary]="this.excelInfo.printMode ==2"  [class.btn-outline-primary]="this.excelInfo.printMode ==1"  class="btn w-100" (click)="changeMode(2)">  Black 95cm Mode</button>            </div>
+    </div>
+    <div class="mt-2 row d-none">
+        <div class="col-6">
+            <input type="number" class="form-control " [(ngModel)]="this.excelInfo.eachPage" (keyup)="handleEachPage()"> 
+        </div>
+        <div class="col-6" style="font-weight: bold;margin-top: 6px;">
+            Page To Every Pdf  File
+        </div>
+    </div>
+    <div class="mt-2"> <button class="btn btn-danger text-center w-100" (click)="pdfFunc()">Export To PDF</button></div>
+   
+</div>
+</div>
+
+
+
+

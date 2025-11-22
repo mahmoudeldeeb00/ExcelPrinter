@@ -1,19 +1,24 @@
-<div class="sticker">
-  <div class="row" style="margin-top: 35%;">
-    <div class="col qr-section" style="width: 60%;">
+<div class="sticker corner-box w-100 h-100" >
+  <span></span>
+  <strong></strong>
+  <div class="sticker-content w-100 h-100" >
+  <div class="row" >
+    <div class=" qr-section" style="width: 60%;padding-right: 0;">
       <app-show-qrcomponent [qrCodeData]="data.qrData">
 
         </app-show-qrcomponent>
     </div>
-    <div class="logo-section"  style="width: 40%; ; align-content: center">
+    <div class="logo-section"  style="width: 40%; ; align-content: center ; padding-left: 0;">
     <img [src]="qrLogoPath" [alt]="qrLogoPath" class="qr">
 
   </div>
   </div>
 
 
-  <h1 class="code h1">{{data.qrData}}</h1>
+  <h1 class="code h1 text-primary" style="font-size: 20px;">{{data.qrData}}</h1>
 
-  <h3 class="h3 warning-en">{{qrMessageEn}}</h3>
-  <h3 class="h3 warning-ar">{{qrMessageAr}}</h3>
+  <h3 class="h3 warning-en" style="font-size: 15px;">{{qrMessageEn}}</h3>
+  <h3 class="h3 warning-ar" style="font-size: 15px;">{{qrMessageAr}}</h3>
+   </div>
+ 
 </div>
