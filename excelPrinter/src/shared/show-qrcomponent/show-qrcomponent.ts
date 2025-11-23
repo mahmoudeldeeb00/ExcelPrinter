@@ -19,16 +19,6 @@ export class ShowQRComponent implements OnInit {
 
  
  ngOnInit() {
-
-    // QRCode.toDataURL(this.qrCodeData,{
-    //   margin: 2, 
-    // })
-    //   .then(url => {
-    //     this.qrImage = url
-    //   }
-    //   );
-
-
       QRCode.toString(this.qrCodeData, { type: 'svg' , margin: 1 })
       .then(svgCode => {
         this.el.nativeElement.querySelector('#divdiv').innerHTML = svgCode;

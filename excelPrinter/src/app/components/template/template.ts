@@ -31,12 +31,15 @@ ngOnInit(){
   this.thirdId = this.newuuid();
 }
  ngAfterViewInit(): void {
-  const svgEl = this.wordToSVGElement(this.data.qrData, this.printMode == 1?30:35, "black" , "100%");
-  const svgE2 = this.wordToSVGElement(environment.qrMessageEn, this.printMode == 1?25 : 30, this.printMode == 1 ?"red" : "black" ,"100%");
-  const svgE3 = this.wordToSVGElement(environment.qrMessageAr, this.printMode == 1?25 : 30, this.printMode == 1 ?"red" : "black" ,"100%");
-  document.getElementById(this.firstId)!.appendChild(svgEl);
-  document.getElementById(this.secondId)!.appendChild(svgE2);
-  document.getElementById(this.thirdId)!.appendChild(svgE3);
+   if (typeof window !== 'undefined'){
+
+     const svgEl = this.wordToSVGElement(this.data.qrData, this.printMode == 1?30:35, "black" , "100%");
+     const svgE2 = this.wordToSVGElement(environment.qrMessageEn, this.printMode == 1?25 : 30, this.printMode == 1 ?"red" : "black" ,"100%");
+     const svgE3 = this.wordToSVGElement(environment.qrMessageAr, this.printMode == 1?25 : 30, this.printMode == 1 ?"red" : "black" ,"100%");
+     document.getElementById(this.firstId)!.appendChild(svgEl);
+     document.getElementById(this.secondId)!.appendChild(svgE2);
+     document.getElementById(this.thirdId)!.appendChild(svgE3);
+    }
   }
 newuuid() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -45,6 +48,7 @@ newuuid() {
     return v.toString(16);
   });
 }
+
 wordToSVGElement(
   word: string,
   fontSize: number,
