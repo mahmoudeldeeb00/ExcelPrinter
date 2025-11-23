@@ -2,7 +2,7 @@
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 body{
-    background-color: #eee;
+    background-color: #fff;
 }
 .custom-loader-dialog .mat-dialog-container {
   background: transparent !important;

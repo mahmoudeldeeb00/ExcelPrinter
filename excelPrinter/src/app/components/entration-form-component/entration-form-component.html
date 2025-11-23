@@ -1,9 +1,29 @@
 <div class="row mt-2">
   <div class="col-6">
-    <h1 class="h1"> File Name : {{excelInfo.fileName}}</h1>
-    <h1 class="h1"> Records Count : {{excelInfo.count}}</h1>
-    <h1 class="h1" *ngIf="list?.length ??0>0"> Start : {{excelInfo.start}}</h1>
-    <h1 class="h1" *ngIf="list?.length??0>0"> End : {{excelInfo.end}}</h1>
+    <div class=" w-100">
+  <h2 class="card-title">Excel Details</h2>
+
+  <div class="info-row">
+    <label>File Name</label>
+    <span> {{excelInfo.fileName}}</span>
+  </div>
+
+  <div class="info-row">
+    <label>Records Coun</label>
+    <span>{{excelInfo.count}}</span>
+  </div>
+
+  <div class="info-row">
+    <label>Start</label>
+    <span> {{excelInfo.start}}</span>
+  </div>
+
+  <div class="info-row">
+    <label>End</label>
+    <span>{{excelInfo.end}}</span>
+  </div>
+</div>
+
   </div>
 
   <div class="col-6">

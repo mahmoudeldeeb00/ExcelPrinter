@@ -12,6 +12,56 @@
 }
 
 .dropzone.fileover {
-  background:#e8eaff;
   border-color:#1a237e;
+}
+.info-card {
+  width: 350px;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.15);
+  margin: auto;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px dashed rgba(67, 44, 44, 0.2);
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-row label {
+  font-weight: 600;
+}
+
+.info-row span {
+  font-weight: 500;
+}
+
+/* Status colors */
+.status.success {
+  color: #4caf50;
+  font-weight: 600;
+}
+.status.warning {
+  color: #ff9800;
+  font-weight: 600;
+}
+.status.error {
+  color: #ef5350;
+  font-weight: 600;
 }
