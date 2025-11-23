@@ -36,7 +36,7 @@ export class TemplatesContainer implements OnInit, OnChanges {
 
   handleChangeData() {
     this.groups = [];
-    let n = this.numberOfRows(this.data.length, this.printMode == 1 ? 6:4);
+    let n = this.numberOfRows(this.data.length, this.printMode == 1 ? 4:2);
     for (let i = 1; i <= n; i++) {
       this.groups.push(i);
     }
