@@ -36,9 +36,7 @@
             "outputMode": "server",
             "ssr": {
               "entry": "src/server.ts"
-            },
-            "outputPath": "dist/excelPrinter"
-
+            }
           },
           "configurations": {
             "production": {
