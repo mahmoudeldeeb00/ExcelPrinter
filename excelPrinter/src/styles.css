@@ -4,8 +4,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 body{
     background-color: #eee;
 }
-
-
+.custom-loader-dialog .mat-dialog-container {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 12px;
+}
+.custom-backdrop{
+    background-color: rgba(0,0,0,0.5);
+}
 @media print {
   body * {
     visibility: hidden; /* أخفي كل الصفحة */
@@ -28,3 +35,4 @@ body{
 
     }
 }
+

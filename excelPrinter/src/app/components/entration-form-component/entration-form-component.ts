@@ -4,6 +4,7 @@ import { TempData } from '../../interfaces/temp-data';
 import { DropzoneDirective } from '../../directives/dropzone-directive';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LoadingService } from '../../services/loading-service/loading-service';
 
 @Component({
   selector: 'app-entration-form-component',
@@ -14,7 +15,9 @@ import { FormsModule } from '@angular/forms';
 export class EntrationFormComponent {
   @Output() excelDataEmitter = new EventEmitter<TempData[]>();
   @Output() pdfEmitter = new EventEmitter<boolean>();
-
+    constructor(private _loadingService : LoadingService){
+      
+    }
   excelInfo: any = {
     fileName: '',
     count: 0,
@@ -43,19 +46,24 @@ export class EntrationFormComponent {
       this.excelInfo.eachPage = this.numberOfRows(this.excelInfo.count);
     }
 
-    console.log('Excel data processed:', this.list.length, 'records');
-    console.log('eachPage calculated:', this.excelInfo.eachPage);
-
     this.excelDataEmitter.emit(this.list);
     this.excelInfo.print = false;
     this.pdfEmitter.emit(this.excelInfo);
+    this._loadingService.hideloader()
+
   }
 
   changeMode(mode: number) {
-    this.excelInfo.printMode = mode;
+    this._loadingService.showLoader()
+    setTimeout(( )=>{
+ this.excelInfo.printMode = mode;
     this.excelInfo.print = false;
     console.log('Mode changed to:', mode);
     this.pdfEmitter.emit(this.excelInfo);
+    this._loadingService.hideloader()
+     },500)
+   
+
   }
 
   handleEachPage() {
@@ -94,7 +102,8 @@ export class EntrationFormComponent {
       alert('Please drop a valid Excel file!');
       return;
     }
-
+    
+    this._loadingService.showLoader()
     const reader = new FileReader();
     reader.onload = (e: any) => {
       const arrayBuffer = e.target.result as ArrayBuffer;
@@ -109,8 +118,10 @@ export class EntrationFormComponent {
   }
 
   onFileChange(event: any) {
+
     const target: DataTransfer = <DataTransfer>(event.target);
     if (target.files.length !== 1) return;
+    this._loadingService.showLoader()
 
     const reader: FileReader = new FileReader();
     reader.onload = (e: any) => {

@@ -31,9 +31,9 @@ ngOnInit(){
   this.thirdId = this.newuuid();
 }
  ngAfterViewInit(): void {
-  const svgEl = this.wordToSVGElement(this.data.qrData, this.printMode == 1?20:25, "black" , "100%");
-  const svgE2 = this.wordToSVGElement(environment.qrMessageEn, this.printMode == 1?18 : 21, this.printMode == 1 ?"red" : "black" ,"100%");
-  const svgE3 = this.wordToSVGElement(environment.qrMessageAr, this.printMode == 1?18 : 21, this.printMode == 1 ?"red" : "black" ,"100%");
+  const svgEl = this.wordToSVGElement(this.data.qrData, this.printMode == 1?30:35, "black" , "100%");
+  const svgE2 = this.wordToSVGElement(environment.qrMessageEn, this.printMode == 1?25 : 30, this.printMode == 1 ?"red" : "black" ,"100%");
+  const svgE3 = this.wordToSVGElement(environment.qrMessageAr, this.printMode == 1?25 : 30, this.printMode == 1 ?"red" : "black" ,"100%");
   document.getElementById(this.firstId)!.appendChild(svgEl);
   document.getElementById(this.secondId)!.appendChild(svgE2);
   document.getElementById(this.thirdId)!.appendChild(svgE3);

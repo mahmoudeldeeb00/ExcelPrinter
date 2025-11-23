@@ -7,6 +7,7 @@ import jsPDF from 'jspdf';
 import { Progressdownladpdf } from '../progressdownladpdf/progressdownladpdf';
 import html2canvas from 'html2canvas';
 import * as svg2pdf from 'svg2pdf.js';
+import { LoadingService } from '../../services/loading-service/loading-service';
 
 @Component({
   selector: 'app-templates-container',
@@ -24,7 +25,7 @@ export class TemplatesContainer implements OnInit, OnChanges {
   dialogRef: any;
   currentIndex: number = 0;
   progressData: any = { current: 0, all: 0, label: 'File No.' };
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private dialog: MatDialog) { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private dialog: MatDialog , private _load : LoadingService) { }
 
   ngOnInit(): void {
     this.handleChangeData();
@@ -40,6 +41,7 @@ export class TemplatesContainer implements OnInit, OnChanges {
     for (let i = 1; i <= n; i++) {
       this.groups.push(i);
     }
+
     console.log('this.groups', this.groups)
   }
 printDiv() {
