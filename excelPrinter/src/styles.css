@@ -4,3 +4,27 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 body{
     background-color: #eee;
 }
+
+
+@media print {
+  body * {
+    visibility: hidden; /* أخفي كل الصفحة */
+  }
+  #printDiv, #printDiv * {
+    visibility: visible; /* خلي الـ div المراد طباعته فقط ظاهر */
+  }
+  #printDiv {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 210mm;   
+    /* height: 297mm;   */
+    box-sizing: border-box;
+  }
+  .pdf-div{
+    border: unset !important;
+    height:297mm ;
+    page-break-before: always
+
+    }
+}

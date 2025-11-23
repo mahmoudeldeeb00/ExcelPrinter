@@ -4,3 +4,9 @@ declare module 'dom-to-image-more' {
   export function toSvg(node: HTMLElement, options?: any): Promise<string>;
   export function toBlob(node: HTMLElement, options?: any): Promise<Blob>;
 }
+
+
+declare module 'imagetracerjs' {
+  const ImageTracer: any;
+  export default ImageTracer;
+}

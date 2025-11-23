@@ -5,10 +5,8 @@
   background: #fff;
 }
 .sticker-content{
-  border: 3px solid #205e98;
   border-radius: 5px;
   text-align: center;
-
 }
 .qr {
   margin-top: 2px;
@@ -16,7 +14,6 @@
 }
 
 .logo {
-  width: 30%;
   margin-top: 2px;
 }
 
@@ -26,17 +23,9 @@
   letter-spacing: 1px;
 }
 
-.warning-en {
-  margin-top:5px;
-  color: red;font-weight: bold;
-}
 
-.warning-ar {
-  font-size: 14px;
-  color: red;
-  margin-top: 5px;
-  font-weight: 600;
-}
+
+
 /* ////////////////////////////////// */
 .corner-box::before {
     content: '';
@@ -45,8 +34,8 @@
     left: 0;
     width: 10px;   /* حجم الزاوية */
     height: 10px;
-    border-top: 1px solid #205e98;   /* سمك ولون الزاوية */
-    border-left: 1px solid #205e98;
+    border-top: 1px solid #000;   /* سمك ولون الزاوية */
+    border-left: 1px solid #000;
 }
 
 /* زاوية عليا يمين */
@@ -57,8 +46,8 @@
     right: 0;
     width: 10px;
     height: 10px;
-    border-top: 1px solid #205e98;
-    border-right: 1px solid #205e98;
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
 }
 
 /* زاوية سفلى يسار */
@@ -69,8 +58,8 @@
     left: 0;
     width: 10px;
     height: 10px;
-    border-bottom: 1px solid #205e98;
-    border-left: 1px solid #205e98;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
 }
 
 /* زاوية سفلى يمين */
@@ -81,6 +70,6 @@
     right: 0;
     width: 10px;
     height: 10px;
-    border-bottom: 1px solid #205e98;
-    border-right: 1px solid #205e98;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
 }
