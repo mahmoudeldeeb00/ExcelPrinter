@@ -22,7 +22,7 @@ export class ShowQRComponent implements OnInit , AfterViewInit ,AfterViewChecked
       //this.generateQR()
   }
   ngAfterViewInit(): void {
- //   this.generateQR()
+    this.generateQR()
   }
 
 
@@ -75,7 +75,6 @@ export class ShowQRComponent implements OnInit , AfterViewInit ,AfterViewChecked
   svg += `</svg>`;
 
   const blob = new Blob([svg], { type: 'image/svg+xml' });
-  //this.el.nativeElement.querySelector('#qr-' + this.qrCodeData).src = URL.createObjectURL(blob);
   this.qrImg.nativeElement.src = URL.createObjectURL(blob);
 }
   }

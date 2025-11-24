@@ -37,7 +37,7 @@ export class EntrationFormComponent {
 
     for (let i = 1; i < sheetData.length; i++) {
       const cell = sheetData[i]?.[0];
-      this.list.push({ qrData: cell ?? null  , qrLink : cell==null?'': this.generateQrUrl(cell)});
+      this.list.push({ qrData: cell ?? null  , qrLink : cell==null?'': ''});
     }
 
     if (this.list.length > 0) {
