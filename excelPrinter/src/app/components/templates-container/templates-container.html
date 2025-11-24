@@ -26,7 +26,7 @@
         @for (group of groups;track group ) {
           <div class="w-100  pdf-div " style="width: 210mm;height: 297mm;background-color: #fff;display: flex; flex-wrap: wrap; justify-content: space-around;align-items: center;" >
             @for (item of skipTake(data ,((group-1)*2) ,2); track item.qrData) {
-              <div class="mt-1" style="width: 120mm; height: 120mm;">
+              <div class="mt-1" style="width: 110mm; height: 110mm;">
                 <ng-container>
                   <app-template [data]="item"  [printMode]="printMode">
                   </app-template>
@@ -35,7 +35,7 @@
             
               }
                 @if(skipTake(data ,((group-1)*2) ,2).length%2 ==1){
-                <div class="" style="width: 120mm; height: 120mm;"></div>
+                <div class="" style="width: 110mm; height: 110mm;"></div>
                 }
             </div>
           }
