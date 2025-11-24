@@ -59,7 +59,6 @@ export class EntrationFormComponent {
     setTimeout(( )=>{
  this.excelInfo.printMode = mode;
     this.excelInfo.print = false;
-    console.log('Mode changed to:', mode);
     this.pdfEmitter.emit(this.excelInfo);
     this._loadingService.hideloader()
      },500)
@@ -67,7 +66,6 @@ export class EntrationFormComponent {
 
   }
  generateQrUrl (dataQr : string){
-console.log('generate qr code link to : ',dataQr)
   const qr = QRCode(0, 'M');  // auto size + medium error correction
   qr.addData(dataQr);
   qr.make();
@@ -93,7 +91,6 @@ console.log('generate qr code link to : ',dataQr)
   const blob = new Blob([svg], { type: 'image/svg+xml' });
   //this.el.nativeElement.querySelector('#qr-' + this.qrCodeData).src = URL.createObjectURL(blob);
  let url = URL.createObjectURL(blob);
-  console.log('return url : ' , url)
  return url;
 
   }
@@ -109,16 +106,10 @@ console.log('generate qr code link to : ',dataQr)
   }
 
   pdfFunc() {
-    console.log('pdfFunc - Current list length:', this.list.length);
-    console.log('pdfFunc - eachPage value:', this.excelInfo.eachPage);
-
     // التأكد من أن eachPage ليس صفر
     if (!this.excelInfo.eachPage || this.excelInfo.eachPage === 0) {
       this.excelInfo.eachPage = this.numberOfRows(this.list.length);
     }
-
-    console.log('pdfFunc - Final eachPage:', this.excelInfo.eachPage);
-
     this.excelInfo.print = true;
     this.pdfEmitter.emit(this.excelInfo);
   }

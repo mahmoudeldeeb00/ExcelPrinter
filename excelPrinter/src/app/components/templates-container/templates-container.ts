@@ -54,7 +54,7 @@ printDiv() {
   window.print();
 }
 
-  downloadPDF(each:0) {
+  downloadPDF() {
       this.printDiv();
   }
 
