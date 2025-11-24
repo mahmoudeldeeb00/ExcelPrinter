@@ -13,7 +13,7 @@ import QRCode from 'qrcode-generator';
 export class ShowQRComponent implements OnInit , AfterViewInit ,AfterViewChecked {
   @Input() qrCodeData : string ="xxxx-xxxx-xxxx-xxxx";
   @Input() qrDataUrl : string ="xxxx-xxxx-xxxx-xxxx";
-  @Input() qrCodeWidth : string ="xxxx-xxxx-xxxx-xxxx";
+  @Input() qrScale : number =8;
   qrImage = '';
   @ViewChild('qrImgRef') qrImg!: ElementRef<HTMLImageElement>;
 
@@ -57,7 +57,8 @@ export class ShowQRComponent implements OnInit , AfterViewInit ,AfterViewChecked
   qr.make();
 
   const count = qr.getModuleCount();
-  const scale = 4; // حجم كل مربع
+  //const scale = 4; // حجم كل مربع
+  const scale =this.qrScale; // حجم كل مربع
 
   let svg = `<svg xmlns="http://www.w3.org/2000/svg"
                   width="${count * scale}"
@@ -73,9 +74,9 @@ export class ShowQRComponent implements OnInit , AfterViewInit ,AfterViewChecked
   }
 
   svg += `</svg>`;
-
-  const blob = new Blob([svg], { type: 'image/svg+xml' });
-  this.qrImg.nativeElement.src = URL.createObjectURL(blob);
+   this.el.nativeElement.querySelector('#qr-'+ this.qrCodeData).innerHTML = svg
+ // const blob = new Blob([svg], { type: 'image/svg+xml' });
+ // this.qrImg.nativeElement.src = URL.createObjectURL(blob);
 }
   }
 
