@@ -19,6 +19,8 @@ export class TemplatesContainer implements OnInit, OnChanges {
   @Input() data: TempData[] = [];
   @Input() printMode: number = 1;
  
+  print1CountPage = 8;
+  print2CountPage = 6;
   groups: number[] = [1];
 
   @ViewChild('devContent') devContent!: ElementRef;
@@ -37,7 +39,7 @@ export class TemplatesContainer implements OnInit, OnChanges {
 
   handleChangeData() {
     this.groups = [];
-    let n = this.numberOfRows(this.data.length, this.printMode == 1 ? 4:2);
+    let n = this.numberOfRows(this.data.length, this.printMode == 1 ? this.print1CountPage:this.print2CountPage);
     for (let i = 1; i <= n; i++) {
       this.groups.push(i);
     }

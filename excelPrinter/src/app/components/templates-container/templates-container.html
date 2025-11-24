@@ -1,10 +1,10 @@
 <div class="mt-3"> Pages Count : {{groups.length}}</div>
-<div id="printDiv" class=" h-auto m-auto" style="width: 210mm;height:auto" #devContent>
+<div id="printDiv" class=" h-auto m-auto" style="width: 297mm;height:auto" #devContent>
 
       @if(this.printMode ==1){
         @for (group of groups;track group ) {
-          <div class="w-100  pdf-div" style="width: 210mm;height: 297mm;background-color: #fff;display: flex; flex-wrap: wrap; justify-content: space-around;align-items: center;" >
-            @for (item of skipTake(data ,((group-1)*4) ,4); track item.qrData) {
+          <div class="w-100  pdf-div" style="width: 297mm;height: 420mm; padding: 0 45mm ;background-color: #fff;display: flex; flex-wrap: wrap; justify-content: space-around;align-items: center;" >
+            @for (item of skipTake(data ,((group-1)*print1CountPage) ,print1CountPage); track item.qrData) {
               <div class="mt-1" style="width: 100mm; height: 100mm;">
                 <ng-container>
                   <app-template [data]="item"  [printMode]="printMode">
@@ -13,10 +13,12 @@
               </div>
             
               }
-                @if(skipTake(data ,((group-1)*4) ,4).length%2 ==1){
+                @if(skipTake(data ,((group-1)*print1CountPage) ,print1CountPage).length%2 ==1){
                 <div class="" style="width: 100mm; height: 100mm;"></div>
                 }
+                
             </div>
+           
           }
       }
 
@@ -24,8 +26,8 @@
       {
 
         @for (group of groups;track group ) {
-          <div class="w-100  pdf-div " style="width: 210mm;height: 297mm;background-color: #fff;display: flex; flex-wrap: wrap; justify-content: space-around;align-items: center;" >
-            @for (item of skipTake(data ,((group-1)*2) ,2); track item.qrData) {
+          <div class="w-100  pdf-div " style="width: 297mm;height: 420mm;padding: 2mm 33mm 70mm 33mm;;background-color: #fff;display: flex; flex-wrap: wrap; justify-content: space-around;align-items: center;" >
+            @for (item of skipTake(data ,((group-1)*print2CountPage) ,print2CountPage); track item.qrData) {
               <div class="mt-1" style="width: 110mm; height: 110mm;">
                 <ng-container>
                   <app-template [data]="item"  [printMode]="printMode">
@@ -34,7 +36,7 @@
               </div>
             
               }
-                @if(skipTake(data ,((group-1)*2) ,2).length%2 ==1){
+                @if(skipTake(data ,((group-1)*print2CountPage) ,print2CountPage).length%2 ==1){
                 <div class="" style="width: 110mm; height: 110mm;"></div>
                 }
             </div>

@@ -33,9 +33,9 @@ ngOnInit(){
  ngAfterViewInit(): void {
    if (typeof window !== 'undefined'){
 
-     const svgEl = this.wordToSVGElement(this.data.qrData, this.printMode == 1?30:35, "black" , "100%");
-     const svgE2 = this.wordToSVGElement(environment.qrMessageEn, this.printMode == 1?25 : 30, this.printMode == 1 ?"red" : "black" ,"100%");
-     const svgE3 = this.wordToSVGElement(environment.qrMessageAr, this.printMode == 1?25 : 30, this.printMode == 1 ?"red" : "black" ,"100%");
+     const svgEl = this.wordToSVGElement(this.data.qrData, this.printMode == 1?30:35, "black" , "100%" , "unset");
+     const svgE2 = this.wordToSVGElement(environment.qrMessageEn, this.printMode == 1?25 : 30, this.printMode == 1 ?"red" : "black" ,"100%", "unset");
+     const svgE3 = this.wordToSVGElement(environment.qrMessageAr, this.printMode == 1?25 : 30, this.printMode == 1 ?"red" : "black" ,"100%" ,this.printMode == 1 ? "unset" : "GE SS Two Medium Medium");
      document.getElementById(this.firstId)!.appendChild(svgEl);
      document.getElementById(this.secondId)!.appendChild(svgE2);
      document.getElementById(this.thirdId)!.appendChild(svgE3);
@@ -54,6 +54,7 @@ wordToSVGElement(
   fontSize: number,
   color: string  ,
   width:string ,
+  fontFamily : string
 ): SVGSVGElement {
   
  // const width = word.length * fontSize * 0.6;
@@ -61,7 +62,7 @@ wordToSVGElement(
   const parser = new DOMParser();
   const svgString = `
         <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
-          <text x="50%" text-anchor="middle" y="${fontSize}" font-size="${fontSize}" font-weight="bold" fill="${color}">
+          <text style="font-family: ${fontFamily}" x="50%" text-anchor="middle" y="${fontSize}" font-size="${fontSize}" font-weight="bold" fill="${color}">
             ${word}
           </text>
         </svg>`;
