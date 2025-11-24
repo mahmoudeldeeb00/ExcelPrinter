@@ -13,8 +13,9 @@ import { Logo2svg } from "../../../shared/logo2svg/logo2svg";
   styleUrl: './template.css',
 })
 export class Template implements OnInit  , AfterViewInit{
-@Input() data : TempData ={qrData : "DM2-TRN-WSB-00091"};
+@Input() data : TempData ={qrData : "DM2-TRN-WSB-00000" ,qrLink : '' };
 @Input() printMode : number = 1 ;
+@Input() qrDataUrl : any  ;
 firstId = '';
 secondId = '';
 thirdId = '';
@@ -33,12 +34,14 @@ ngOnInit(){
  ngAfterViewInit(): void {
    if (typeof window !== 'undefined'){
 
-     const svgEl = this.wordToSVGElement(this.data.qrData, this.printMode == 1?30:35, "black" , "100%" , "unset");
-     const svgE2 = this.wordToSVGElement(environment.qrMessageEn, this.printMode == 1?25 : 30, this.printMode == 1 ?"red" : "black" ,"100%", "unset");
-     const svgE3 = this.wordToSVGElement(environment.qrMessageAr, this.printMode == 1?25 : 30, this.printMode == 1 ?"red" : "black" ,"100%" ,this.printMode == 1 ? "unset" : "GE SS Two Medium Medium");
+     const svgEl = this.wordToSVGElement(this.data.qrData, this.printMode == 1?28:35, "black" , "100%" , "unset");
+     const svgE2 = this.wordToSVGElement(environment.qrMessageEn, this.printMode == 1?23 : 30, this.printMode == 1 ?"red" : "black" ,"100%", "unset");
+     const svgE3 = this.wordToSVGElement(environment.qrMessageAr, this.printMode == 1?23 : 30, this.printMode == 1 ?"red" : "black" ,"100%" ,this.printMode == 1 ? "unset" : "Noto Sans Arabic");
      document.getElementById(this.firstId)!.appendChild(svgEl);
-     document.getElementById(this.secondId)!.appendChild(svgE2);
-     document.getElementById(this.thirdId)!.appendChild(svgE3);
+    if(this.printMode == 1){
+      document.getElementById(this.secondId)!.appendChild(svgE2);
+      document.getElementById(this.thirdId)!.appendChild(svgE3);
+    }
     }
   }
 newuuid() {

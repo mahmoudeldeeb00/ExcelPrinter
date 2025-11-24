@@ -43,8 +43,7 @@ export class TemplatesContainer implements OnInit, OnChanges {
     for (let i = 1; i <= n; i++) {
       this.groups.push(i);
     }
-
-    console.log('this.groups', this.groups)
+  
   }
 printDiv() {
   const element = document.getElementById('printDiv');
@@ -67,5 +66,6 @@ printDiv() {
   skipTake<T>(arr: T[], skip: number, take: number): T[] {
     return arr.slice(skip, skip + take);
   }
+
 
 }

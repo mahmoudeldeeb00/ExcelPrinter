@@ -5,6 +5,7 @@ import { DropzoneDirective } from '../../directives/dropzone-directive';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoadingService } from '../../services/loading-service/loading-service';
+import QRCode from 'qrcode-generator';
 
 @Component({
   selector: 'app-entration-form-component',
@@ -36,7 +37,7 @@ export class EntrationFormComponent {
 
     for (let i = 1; i < sheetData.length; i++) {
       const cell = sheetData[i]?.[0];
-      this.list.push({ qrData: cell ?? null });
+      this.list.push({ qrData: cell ?? null  , qrLink : cell==null?'': this.generateQrUrl(cell)});
     }
 
     if (this.list.length > 0) {
@@ -65,7 +66,37 @@ export class EntrationFormComponent {
    
 
   }
+ generateQrUrl (dataQr : string){
+console.log('generate qr code link to : ',dataQr)
+  const qr = QRCode(0, 'M');  // auto size + medium error correction
+  qr.addData(dataQr);
+  qr.make();
 
+  const count = qr.getModuleCount();
+  const scale = 4; // حجم كل مربع
+
+  let svg = `<svg xmlns="http://www.w3.org/2000/svg"
+                  width="${count * scale}"
+                  height="${count * scale}"
+                  shape-rendering="crispEdges">`;
+
+  for (let r = 0; r < count; r++) {
+    for (let c = 0; c < count; c++) {
+      if (qr.isDark(r, c)) {
+        svg += `<rect x="${c * scale}" y="${r * scale}" width="${scale}" height="${scale}" fill="#000" />`;
+      }
+    }
+  }
+
+  svg += `</svg>`;
+
+  const blob = new Blob([svg], { type: 'image/svg+xml' });
+  //this.el.nativeElement.querySelector('#qr-' + this.qrCodeData).src = URL.createObjectURL(blob);
+ let url = URL.createObjectURL(blob);
+  console.log('return url : ' , url)
+ return url;
+
+  }
   handleEachPage() {
     if (this.list?.length) {
       let nopages = this.numberOfRows(this.list.length);

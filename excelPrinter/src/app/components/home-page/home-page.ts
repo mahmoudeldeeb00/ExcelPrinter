@@ -13,7 +13,7 @@ export class HomePage {
   @ViewChild(TemplatesContainer) tempsComp!: TemplatesContainer;
   printMode: number = 1;
   data: TempData[] = [
-    { qrData: "DM2-TRN-WSB-00000" },
+    { qrData: "DM2-TRN-WSB-00000"  , qrLink : ''},
   ]
 
   fetchDataFromExcel(_data: TempData[]) {
@@ -34,4 +34,8 @@ export class HomePage {
       }, 500);
     }
   }
+
+
+  
+ 
 }

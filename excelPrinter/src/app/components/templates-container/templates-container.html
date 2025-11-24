@@ -5,16 +5,16 @@
         @for (group of groups;track group ) {
           <div class="w-100  pdf-div" style="width: 297mm;height: 420mm; padding: 0 45mm ;background-color: #fff;display: flex; flex-wrap: wrap; justify-content: space-around;align-items: center;" >
             @for (item of skipTake(data ,((group-1)*print1CountPage) ,print1CountPage); track item.qrData) {
-              <div class="mt-1" style="width: 100mm; height: 100mm;">
+              <div class="mt-1" style="width: 90mm; height: 90mm;">
                 <ng-container>
-                  <app-template [data]="item"  [printMode]="printMode">
+                  <app-template [data]="item"  [printMode]="printMode" [qrDataUrl]="item.qrLink">
                   </app-template>
                 </ng-container>
               </div>
             
               }
                 @if(skipTake(data ,((group-1)*print1CountPage) ,print1CountPage).length%2 ==1){
-                <div class="" style="width: 100mm; height: 100mm;"></div>
+                <div class="" style="width: 90mm; height: 90mm;"></div>
                 }
                 
             </div>
@@ -30,7 +30,7 @@
             @for (item of skipTake(data ,((group-1)*print2CountPage) ,print2CountPage); track item.qrData) {
               <div class="mt-1" style="width: 110mm; height: 110mm;">
                 <ng-container>
-                  <app-template [data]="item"  [printMode]="printMode">
+                  <app-template [data]="item"  [printMode]="printMode" [qrDataUrl]="item.qrLink">
                   </app-template>
                 </ng-container>
               </div>
