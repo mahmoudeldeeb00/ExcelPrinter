@@ -26,7 +26,7 @@
               }
               @for (item of getArrayFromNumber(colorSheetCountInPage - ((skipTake(data ,((group-1)*colorSheetCountInPage) ,colorSheetCountInPage).length))); track $index) {
               <div 
-                class="bg-primary"
+                class=""
                  [ngStyle]="{'width' : colorOneTemplateWidthInmm , 'height' : colorOneTemplateWidthInmm}"
                ></div>
               }
@@ -57,7 +57,7 @@
               }
                    @for (item of getArrayFromNumber(blackWhiteSheetCountInPage - ((skipTake(data ,((group-1)*blackWhiteSheetCountInPage) ,blackWhiteSheetCountInPage).length))); track $index) 
                     {
-          <div class=""  class="bg-dark"  [ngStyle]="{'width' : blackWhiteOneTemplateWidthInmm , 'height' : blackWhiteOneTemplateWidthInmm}"></div>
+          <div class=""  [ngStyle]="{'width' : blackWhiteOneTemplateWidthInmm , 'height' : blackWhiteOneTemplateWidthInmm}"></div>
                       
                     }
                 
