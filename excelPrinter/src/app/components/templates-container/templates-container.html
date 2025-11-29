@@ -1,21 +1,36 @@
 <div class="mt-3"> Pages Count : {{groups.length}}</div>
-<div id="printDiv" class=" h-auto m-auto" style="width: 297mm;height:auto" #devContent>
+<div
+ #devContent
+ id="printDiv" 
+ class=" h-auto m-auto" 
+ style="height:auto"
+ [ngStyle]="this.printMode == 1 ? {'width' : colorSheetWidthInmm}:{'width' : blackWhiteSheetWidthInmm}" 
+>
 
       @if(this.printMode ==1){
         @for (group of groups;track group ) {
-          <div class="w-100  pdf-div" style="width: 297mm;height: 420mm; padding: 0 45mm ;background-color: #fff;display: flex; flex-wrap: wrap; justify-content: space-around;align-items: center;" >
-            @for (item of skipTake(data ,((group-1)*print1CountPage) ,print1CountPage); track item.qrData) {
-              <div class="mt-1" style="width: 90mm; height: 90mm;">
-                <ng-container>
-                  <app-template [data]="item"  [printMode]="printMode" [qrDataUrl]="item.qrLink">
-                  </app-template>
-                </ng-container>
-              </div>
-            
+          <div class="w-100  pdf-div"
+          style="background-color: #fff;display: flex; flex-wrap: wrap; justify-content: space-around;align-items: center;"
+          [ngStyle]="{'width':colorSheetWidthInmm , 'height':colorSheetHeightInmm}" 
+          >
+            @for (item of skipTake(data ,((group-1)*colorSheetCountInPage) ,colorSheetCountInPage); track item.qrData) {
+                <div class="mt-1" 
+                [ngStyle]="{'width' : colorOneTemplateWidthInmm , 'height' : colorOneTemplateWidthInmm}"
+                >
+                  <ng-container>
+                    <app-template [data]="item"  [printMode]="printMode" [qrDataUrl]="item.qrLink">
+                    </app-template>
+                  </ng-container>
+                </div>
+              
               }
-                @if(skipTake(data ,((group-1)*print1CountPage) ,print1CountPage).length%2 ==1){
-                <div class="" style="width: 90mm; height: 90mm;"></div>
-                }
+              @for (item of getArrayFromNumber(colorSheetCountInPage - ((skipTake(data ,((group-1)*colorSheetCountInPage) ,colorSheetCountInPage).length))); track $index) {
+              <div 
+                class="bg-primary"
+                 [ngStyle]="{'width' : colorOneTemplateWidthInmm , 'height' : colorOneTemplateWidthInmm}"
+               ></div>
+              }
+                
                 
             </div>
            
@@ -26,9 +41,13 @@
       {
 
         @for (group of groups;track group ) {
-          <div class="w-100  pdf-div " style="width: 297mm;height: 420mm;padding: 2mm 33mm 70mm 33mm;;background-color: #fff;display: flex; flex-wrap: wrap; justify-content: space-around;align-items: center;" >
-            @for (item of skipTake(data ,((group-1)*print2CountPage) ,print2CountPage); track item.qrData) {
-              <div class="mt-1" style="width: 110mm; height: 110mm;">
+          <div class="w-100  pdf-div "
+          style="padding: 2mm 33mm 70mm 33mm;;background-color: #fff;display: flex; flex-wrap: wrap; justify-content: space-around;align-items: center;"
+           [ngStyle]="{'width':blackWhiteSheetWidthInmm , 'height':blackWhiteSheetHeightInmm}"  >
+            @for (item of skipTake(data ,((group-1)*blackWhiteSheetCountInPage) ,blackWhiteSheetCountInPage); track item.qrData) {
+              <div class="mt-1"
+                [ngStyle]="{'width' : blackWhiteOneTemplateWidthInmm , 'height' : blackWhiteOneTemplateWidthInmm}"
+            >
                 <ng-container>
                   <app-template [data]="item"  [printMode]="printMode" [qrDataUrl]="item.qrLink">
                   </app-template>
@@ -36,9 +55,12 @@
               </div>
             
               }
-                @if(skipTake(data ,((group-1)*print2CountPage) ,print2CountPage).length%2 ==1){
-                <div class="" style="width: 110mm; height: 110mm;"></div>
-                }
+                   @for (item of getArrayFromNumber(blackWhiteSheetCountInPage - ((skipTake(data ,((group-1)*blackWhiteSheetCountInPage) ,blackWhiteSheetCountInPage).length))); track $index) 
+                    {
+          <div class=""  class="bg-dark"  [ngStyle]="{'width' : blackWhiteOneTemplateWidthInmm , 'height' : blackWhiteOneTemplateWidthInmm}"></div>
+                      
+                    }
+                
             </div>
           }
         

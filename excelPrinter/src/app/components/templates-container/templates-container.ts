@@ -18,9 +18,15 @@ import { LoadingService } from '../../services/loading-service/loading-service';
 export class TemplatesContainer implements OnInit, OnChanges {
   @Input() data: TempData[] = [];
   @Input() printMode: number = 1;
- 
-  print1CountPage = 8;
-  print2CountPage = 6;
+  colorSheetWidthInmm = '1200mm';
+  colorSheetHeightInmm = '1000mm';
+  colorOneTemplateWidthInmm = '90mm';
+  colorSheetCountInPage = 143;
+  blackWhiteSheetWidthInmm = '297mm';
+  blackWhiteSheetHeightInmm = '420mm';
+   blackWhiteOneTemplateWidthInmm = '110mm';
+   blackWhiteSheetCountInPage = 6;
+
   groups: number[] = [1];
 
   @ViewChild('devContent') devContent!: ElementRef;
@@ -39,7 +45,7 @@ export class TemplatesContainer implements OnInit, OnChanges {
 
   handleChangeData() {
     this.groups = [];
-    let n = this.numberOfRows(this.data.length, this.printMode == 1 ? this.print1CountPage:this.print2CountPage);
+    let n = this.numberOfRows(this.data.length, this.printMode == 1 ? this.colorSheetCountInPage:this.blackWhiteSheetCountInPage);
     for (let i = 1; i <= n; i++) {
       this.groups.push(i);
     }
@@ -62,7 +68,9 @@ printDiv() {
     return Math.ceil(n / perRow);
   }
 
-
+  getArrayFromNumber(length: number):number[]{
+    return Array.from({ length: length })
+  }
   skipTake<T>(arr: T[], skip: number, take: number): T[] {
     return arr.slice(skip, skip + take);
   }
