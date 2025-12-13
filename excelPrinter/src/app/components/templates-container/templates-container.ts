@@ -8,6 +8,7 @@ import { Progressdownladpdf } from '../progressdownladpdf/progressdownladpdf';
 import html2canvas from 'html2canvas';
 import * as svg2pdf from 'svg2pdf.js';
 import { LoadingService } from '../../services/loading-service/loading-service';
+import { environment } from '../../../environments/environment.model';
 
 @Component({
   selector: 'app-templates-container',
@@ -18,21 +19,23 @@ import { LoadingService } from '../../services/loading-service/loading-service';
 export class TemplatesContainer implements OnInit, OnChanges {
   @Input() data: TempData[] = [];
   @Input() printMode: number = 1;
-  colorSheetWidthInmm = '1200mm';
-  colorSheetHeightInmm = '1000mm';
-  colorOneTemplateWidthInmm = '90mm';
-  colorSheetCountInPage = 143;
-  blackWhiteSheetWidthInmm = '297mm';
-  blackWhiteSheetHeightInmm = '420mm';
-   blackWhiteOneTemplateWidthInmm = '110mm';
-   blackWhiteSheetCountInPage = 6;
-
-  groups: number[] = [1];
-
   @ViewChild('devContent') devContent!: ElementRef;
+  
   dialogRef: any;
   currentIndex: number = 0;
   progressData: any = { current: 0, all: 0, label: 'File No.' };
+  colorSheetWidthInmm = environment.colorSheetWidthInmm;
+  colorSheetHeightInmm = environment.colorSheetHeightInmm;
+  colorOneTemplateWidthInmm = environment.colorOneTemplateWidthInmm;
+  colorSheetCountInPage = environment.colorSheetCountInPage;
+  blackWhiteSheetWidthInmm = environment.blackWhiteSheetWidthInmm;
+  blackWhiteSheetHeightInmm = environment.blackWhiteSheetHeightInmm;
+  blackWhiteOneTemplateWidthInmm = environment.blackWhiteOneTemplateWidthInmm;
+  blackWhiteSheetCountInPage = environment.blackWhiteSheetCountInPage;
+
+  groups: number[] = [1];
+
+
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private dialog: MatDialog , private _load : LoadingService) { }
 
   ngOnInit(): void {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from '../../environments/environment.model';
 
 @Component({
   selector: 'app-logo1svg',
@@ -7,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './logo1svg.css',
 })
 export class Logo1svg {
-
+  marginleft:string = environment.colorlogomarginleft;
+  marginbottom:string = environment.colorlogomarginbottom;
+  width:number = environment.colorlogoWidth;
+  height:number = environment.colorlogoHeight;
 }

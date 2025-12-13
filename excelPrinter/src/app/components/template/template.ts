@@ -22,7 +22,18 @@ thirdId = '';
 qrLogoPath:string = environment.logoUrl;
 qrMessageAr:string = environment.qrMessageAr;
 qrMessageEn:string = environment.qrMessageEn;
+colorOneInnerTemplateWidthInmm : string = environment.colorOneInnerTemplateWidthInmm;
+colorQrCodeScale : number = environment.colorQrCodeScale;
+colorqrCodeTextFontSize = environment.colorqrCodeTextFontSize ;
+colorqEnglishTextFontSize = environment.colorqEnglishTextFontSize ;
+colorArabicTextFontSize = environment.colorArabicTextFontSize ;
 
+blackWhiteqrCodeTextFontSize= environment.blackWhiteqrCodeTextFontSize ;
+blackWhiteqEnglishTextFontSize = environment.blackWhiteqEnglishTextFontSize ;
+blackWhiteArabicTextFontSize = environment.blackWhiteArabicTextFontSize ;
+blackWhiteQrCodeScale : number = environment.blackWhiteQrCodeScale;
+blackWhiteOneInnerTemplateWidthInmm : string = environment.blackWhiteOneInnerTemplateWidthInmm;
+blackTextImageWidthPercentage = environment.blackTextImageWidthPercentage ;
 constructor(private el: ElementRef){}
  
 
@@ -34,9 +45,9 @@ ngOnInit(){
  ngAfterViewInit(): void {
    if (typeof window !== 'undefined'){
 
-     const svgEl = this.wordToSVGElement(this.data.qrData, this.printMode == 1?28:35, "black" , "100%" , "unset");
-     const svgE2 = this.wordToSVGElement(environment.qrMessageEn, this.printMode == 1?23 : 30, this.printMode == 1 ?"red" : "black" ,"100%", "unset");
-     const svgE3 = this.wordToSVGElement(environment.qrMessageAr, this.printMode == 1?23 : 30, this.printMode == 1 ?"red" : "black" ,"100%" ,this.printMode == 1 ? "unset" : "Noto Sans Arabic");
+     const svgEl = this.wordToSVGElement(this.data.qrData, this.printMode == 1?this.colorqrCodeTextFontSize:this.blackWhiteqrCodeTextFontSize, "black" , "100%" , "unset");
+     const svgE2 = this.wordToSVGElement(environment.qrMessageEn, this.printMode == 1?this.colorqEnglishTextFontSize : this.blackWhiteqEnglishTextFontSize, this.printMode == 1 ?"red" : "black" ,"100%", "unset");
+     const svgE3 = this.wordToSVGElement(environment.qrMessageAr, this.printMode == 1?this.colorArabicTextFontSize : this.blackWhiteArabicTextFontSize, this.printMode == 1 ?"red" : "black" ,"100%" ,this.printMode == 1 ? "unset" : "Noto Sans Arabic");
      document.getElementById(this.firstId)!.appendChild(svgEl);
     if(this.printMode == 1){
       document.getElementById(this.secondId)!.appendChild(svgE2);
